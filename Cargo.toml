@@ -1,0 +1,18 @@
+[package]
+name = "c2rust"
+authors = ["C2Rust"]
+version = "6.2.0"
+publish = false
+edition = "2018"
+
+[[bin]]
+path = "c2rust-main.rs"
+name = "dwm"
+
+
+[dependencies]
+
+
+libc = "0.2"
+
+
