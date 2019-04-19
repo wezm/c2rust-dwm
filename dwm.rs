@@ -2181,6 +2181,17 @@ unsafe extern "C" fn detach(mut c: *mut Client) {
     while !(*tc).is_null() && *tc != c { tc = &mut (**tc).next }
     *tc = (*c).next;
 }
+
+fn min(a: i32, b: i32) -> i32 {
+    if a < b { a } else { b }
+}
+fn max(a: i32, b: i32) -> i32 {
+    if a > b { a } else { b }
+}
+unsafe fn intersect(x: i32, y: i32, w: i32, h: i32, m: *mut Monitor) -> i32 {
+   (max(0, min((x)+(w),(*m).wx+(*m).ww) - max((x),(*m).wx))
+                               * max(0, min((y)+(h),(*m).wy+(*m).wh) - max((y),(*m).wy)))
+}
 unsafe extern "C" fn recttomon(mut x: libc::c_int, mut y: libc::c_int,
                                mut w: libc::c_int, mut h: libc::c_int)
  -> *mut Monitor {
@@ -2190,31 +2201,31 @@ unsafe extern "C" fn recttomon(mut x: libc::c_int, mut y: libc::c_int,
     let mut area: libc::c_int = 0i32;
     m = mons;
     while !m.is_null() {
-        a =
-            if 0i32 >
-                   if x + w < (*m).wx + (*m).ww {
-                       x + w
-                   } else { (*m).wx + (*m).ww } -
-                       if x > (*m).wx { x } else { (*m).wx } {
-                0i32
-            } else {
-                if x + w < (*m).wx + (*m).ww {
-                    x + w
-                } else { (*m).wx + (*m).ww } -
-                    if x > (*m).wx { x } else { (*m).wx }
-            } *
-                if 0i32 >
-                       if y + h < (*m).wy + (*m).wh {
-                           y + h
-                       } else { (*m).wy + (*m).wh } -
-                           if y > (*m).wy { y } else { (*m).wy } {
-                    0i32
-                } else {
-                    if y + h < (*m).wy + (*m).wh {
-                        y + h
-                    } else { (*m).wy + (*m).wh } -
-                        if y > (*m).wy { y } else { (*m).wy }
-                };
+        a = intersect(x, y, w, h, m);
+//            if 0i32 >
+//                   if x + w < (*m).wx + (*m).ww {
+//                       x + w
+//                   } else { (*m).wx + (*m).ww } -
+//                       if x > (*m).wx { x } else { (*m).wx } {
+//                0i32
+//            } else {
+//                if x + w < (*m).wx + (*m).ww {
+//                    x + w
+//                } else { (*m).wx + (*m).ww } -
+//                    if x > (*m).wx { x } else { (*m).wx }
+//            } *
+//                if 0i32 >
+//                       if y + h < (*m).wy + (*m).wh {
+//                           y + h
+//                       } else { (*m).wy + (*m).wh } -
+//                           if y > (*m).wy { y } else { (*m).wy } {
+//                    0i32
+//                } else {
+//                    if y + h < (*m).wy + (*m).wh {
+//                        y + h
+//                    } else { (*m).wy + (*m).wh } -
+//                        if y > (*m).wy { y } else { (*m).wy }
+//                };
         if a > area { area = a; r = m }
         m = (*m).next
     }
