@@ -3056,7 +3056,7 @@ static mut dmenucmd: [*const libc::c_char; 14] =
     unsafe {
         [b"dmenu_run\x00" as *const u8 as *const libc::c_char,
          b"-m\x00" as *const u8 as *const libc::c_char,
-         dmenumon.as_ptr() as *mut _ as *const libc::c_char,
+         dmenumon.as_ptr() as *mut u8 as *const libc::c_char,
          b"-fn\x00" as *const u8 as *const libc::c_char, dmenufont.as_ptr(),
          b"-nb\x00" as *const u8 as *const libc::c_char, col_gray1.as_ptr(),
          b"-nf\x00" as *const u8 as *const libc::c_char, col_gray3.as_ptr(),
