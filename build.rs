@@ -1,11 +1,6 @@
-#[cfg(target_os = "linux")]
 fn main() {
-    // add linux dependencies here below
-    // println!("cargo:rustc-flags=-l readline");
-}
-
-#[cfg(target_os = "macos")]
-fn main() {
-    // add macos dependencies below
-    // println!("cargo:rustc-flags=-l edit");
+    println!("cargo:rustc-flags=-l Xinerama");
+    println!("cargo:rustc-flags=-l fontconfig");
+    println!("cargo:rustc-flags=-l Xft");
+    println!("cargo:rustc-flags=-l X11");
 }
