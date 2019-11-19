@@ -2,6 +2,17 @@ dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
 
+This repo contains dwm converted to Rust with the [C2Rust](https://c2rust.com/)
+tool. Whilst the converted code is basically C in Rust, almost all unsafe code,
+and not idomatica at all it does build and run as expected.
+
+To run it in a nested X session with Xephr:
+
+    cargo build
+    Xephyr -br -ac -noreset -screen 800x600 -dpi 192 :1
+    DISPLAY=1  target/debug/dwm
+
+Original README follows.
 
 Requirements
 ------------

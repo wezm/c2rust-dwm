@@ -11,8 +11,8 @@ name = "dwm"
 
 
 [dependencies]
-
-
 libc = "0.2"
+x11 = { version = "2", features = ["xlib", "xinerama", "xft"] }
 
-
+[build-dependencies]
+pkg-config = "0.3"

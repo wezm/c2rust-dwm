@@ -1,4 +1,6 @@
 use libc;
+use x11;
+
 extern "C" {
     pub type _IO_wide_data;
     pub type _IO_codecvt;
@@ -3037,7 +3039,7 @@ unsafe extern "C" fn updatebarpos(mut m: *mut Monitor) {
     } else { (*m).by = -bh };
 }
 static mut termcmd: [*const libc::c_char; 2] =
-    [b"st\x00" as *const u8 as *const libc::c_char, 0 as *const libc::c_char];
+    [b"alacritty\x00" as *const u8 as *const libc::c_char, 0 as *const libc::c_char];
 unsafe extern "C" fn spawn(mut arg: *const Arg) {
     if (*arg).v == dmenucmd.as_mut_ptr() as *const libc::c_void {
         dmenumon[0usize] = ('0' as i32 + (*selmon).num) as libc::c_char
